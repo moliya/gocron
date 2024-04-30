@@ -283,6 +283,14 @@ func apiAuth(ctx *macaron.Context) {
 	if !app.Setting.ApiSignEnable {
 		return
 	}
+	trustIpsStr := app.Setting.ApiTrustIps
+	if trustIpsStr != "" {
+		clientIp := ctx.RemoteAddr()
+		trustIps := strings.Split(trustIpsStr, ",")
+		if utils.InStringSlice(trustIps, clientIp) {
+			return
+		}
+	}
 	apiKey := strings.TrimSpace(app.Setting.ApiKey)
 	apiSecret := strings.TrimSpace(app.Setting.ApiSecret)
 	json := utils.JsonResponse{}
