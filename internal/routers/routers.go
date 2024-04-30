@@ -283,14 +283,15 @@ func apiAuth(ctx *macaron.Context) {
 	if !app.Setting.ApiSignEnable {
 		return
 	}
+	clientIp := ctx.RemoteAddr()
 	trustIpsStr := app.Setting.ApiTrustIps
 	if trustIpsStr != "" {
-		clientIp := ctx.RemoteAddr()
 		trustIps := strings.Split(trustIpsStr, ",")
 		if utils.InStringSlice(trustIps, clientIp) {
 			return
 		}
 	}
+	logger.Warnf("非信任IP访问-%s", clientIp)
 	apiKey := strings.TrimSpace(app.Setting.ApiKey)
 	apiSecret := strings.TrimSpace(app.Setting.ApiSecret)
 	json := utils.JsonResponse{}
