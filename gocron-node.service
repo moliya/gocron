@@ -1,0 +1,14 @@
+[Unit]
+Description=gocron执行器
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/code/gocron
+ExecStart=/root/code/gocron/bin/gocron-node
+Restart=on-failure
+RestartSec=360
+
+[Install]
+WantedBy=multi-user.target
