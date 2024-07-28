@@ -6,7 +6,7 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=/root/code/gocron
-ExecStart=/root/code/gocron/bin/gocron-node
+ExecStart=/root/code/gocron/bin/gocron-node -allow-root
 Restart=on-failure
 RestartSec=360
 
